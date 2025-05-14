@@ -22,8 +22,13 @@ public class UserInterface {
     private  void printGrid() {
         System.out.println("---------");
 
-        for (String[] line : gameGrid.getGridArray()){
-            System.out.println(Arrays.toString(line));
+        for (String[] row : gameGrid.getGridArray()){
+            System.out.print("| ");
+           for (String element : row) {
+               System.out.print(element + " ");
+           }
+            System.out.print("|");
+            System.out.println();
         }
 
         System.out.println("---------");
