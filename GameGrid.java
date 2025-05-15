@@ -60,15 +60,64 @@ public class GameGrid {
         return false;
     }
 
+    // checking if there is winner, return winner or empty string
+
+    private String returnWinner(int sum) {
+        if (sum == 3) {
+            return "X";
+        } else if (sum == 30) {
+            return "O";
+        } else {
+            return "";
+        }
+    }
+
+    // summing numbers in row, if it is 3 or 30 there is a winner
+
     public void checkRowsForWiner() {
-        int sum = 0;
+
         for (int[] row : this.gridNumbers) {
+            int sum = 0;
             for (int element : row) {
                 sum += element;
             }
-            if (sum == 3 || sum == 30) {
-                System.out.println("there is a winner");
-            }
+            System.out.println(returnWinner(sum));
+
         }
+    }
+
+    //summing numbers in columns, if there is 3 or 30 there is winner
+
+    public void checkColumnsForWinner() {
+
+        for (int i = 0; i < this.gridNumbers.length; i++) {
+            int sum = 0;
+            for (int j = 0; j < this.gridNumbers.length; j++) {
+                sum += this.gridNumbers[j][i];
+            }
+
+            System.out.println(returnWinner(sum));
+
+        }
+    }
+
+    // summing numbers in diagonal, if there is 3 or 30 there is a winner
+
+    public void checkDiagonalForWinner() {
+        int sum = 0;
+        for (int i = 0; i < this.gridNumbers.length; i ++) {
+            sum += this.gridNumbers[i][i];
+        }
+        System.out.println(returnWinner(sum));
+
+        sum = 0;
+
+        int j = 2;
+        for (int i = 0; i < this.gridNumbers.length; i++) {
+
+            sum += this.gridNumbers[i][j];
+            j -= 1;
+        }
+        System.out.println(returnWinner(sum));
     }
 }

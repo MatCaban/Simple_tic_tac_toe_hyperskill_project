@@ -13,6 +13,8 @@ public class UserInterface {
         getGridFromUser();
         printGrid();
        gameGrid.checkRowsForWiner();
+       gameGrid.checkColumnsForWinner();
+       gameGrid.checkDiagonalForWinner();
 
     }
 
