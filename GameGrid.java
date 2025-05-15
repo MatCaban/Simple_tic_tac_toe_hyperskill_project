@@ -3,7 +3,8 @@ package tictactoe;
 public class GameGrid {
     private String[][] gridArray;
 
-    public GameGrid() {}
+    public GameGrid() {
+    }
 
     // creating 2D array each row has 3 columns
 
@@ -17,14 +18,23 @@ public class GameGrid {
                 gridArray[i][j] = gridRepresentation.substring(startIndex, startIndex + 1);
                 startIndex += 1;
             }
-
-
         }
 
 
     }
 
-    public String[][] getGridArray(){
+    public String[][] getGridArray() {
         return this.gridArray;
+    }
+
+    public boolean isGameFinished() {
+        for (String[] row : gridArray) {
+            for (String element : row) {
+                if (element.equals("_")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

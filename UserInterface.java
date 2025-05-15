@@ -12,6 +12,7 @@ public class UserInterface {
     public void start() {
         getGridFromUser();
         printGrid();
+
     }
 
 
