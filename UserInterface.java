@@ -12,6 +12,7 @@ public class UserInterface {
     public void start() {
         getGridFromUser();
         printGrid();
+       gameGrid.checkRowsForWiner();
 
     }
 
@@ -34,4 +35,5 @@ public class UserInterface {
 
         System.out.println("---------");
     }
+
 }
