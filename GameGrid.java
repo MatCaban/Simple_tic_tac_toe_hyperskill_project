@@ -48,69 +48,106 @@ public class GameGrid {
     }
 
 
+    public void chooseWinner() {
+
+    }
 
     public boolean isGameFinished() {
         for (String[] row : this.gridArray) {
             for (String element : row) {
                 if (element.equals("_")) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
-    // checking if there is winner, return winner or empty string
+    // checking if there is winner, return winner or draw if there is draw or empty string for no winner
 
-    private String returnWinner(int sum) {
+    private int returnWinner(int sum) {
         if (sum == 3) {
-            return "X";
+            return 3;
         } else if (sum == 30) {
-            return "O";
+            return 30;
         } else {
-            return "";
+            return 1;
         }
     }
 
     // summing numbers in row, if it is 3 or 30 there is a winner
 
-    public void checkRowsForWiner() {
-
+    public String checkRowsForWiner() {
+        /*
+         * there should not be two winners, if winner number is not equal
+         * to 3 or 30, game is not valid
+         */
+        int winner = 0;
         for (int[] row : this.gridNumbers) {
             int sum = 0;
             for (int element : row) {
                 sum += element;
             }
-            System.out.println(returnWinner(sum));
+            winner += returnWinner(sum);
+        }
 
+        if (winner == 3) {
+            return "X";
+        } else if (winner == 30) {
+            return "O";
+        } else if(winner != 0) {
+            return "impossible";
+        } else {
+            return "neither";
         }
     }
 
     //summing numbers in columns, if there is 3 or 30 there is winner
 
-    public void checkColumnsForWinner() {
-
+    public String checkColumnsForWinner() {
+        /*
+         * there should not be two winners, if winner number is not equal
+         * to 3 or 30, game is not valid
+         */
+        int winner = 0;
         for (int i = 0; i < this.gridNumbers.length; i++) {
             int sum = 0;
             for (int j = 0; j < this.gridNumbers.length; j++) {
                 sum += this.gridNumbers[j][i];
             }
 
-            System.out.println(returnWinner(sum));
-
+            winner += returnWinner(sum);
+        }
+        if (winner == 3) {
+            return "X";
+        } else if (winner == 30) {
+            return "O";
+        } else if(winner != 0) {
+            return "impossible";
+        } else {
+            return "neither";
         }
     }
 
     // summing numbers in diagonal, if there is 3 or 30 there is a winner
 
-    public void checkDiagonalForWinner() {
+    public String checkRightDiagonalForWinner() {
         int sum = 0;
-        for (int i = 0; i < this.gridNumbers.length; i ++) {
+        for (int i = 0; i < this.gridNumbers.length; i++) {
             sum += this.gridNumbers[i][i];
         }
-        System.out.println(returnWinner(sum));
 
-        sum = 0;
+        if (sum == 3) {
+            return "X";
+        } else if (sum == 30) {
+            return "O";
+        } else {
+            return "neither";
+        }
+    }
+
+    public String checkLeftDiagonalForWinner() {
+        int sum = 0;
 
         int j = 2;
         for (int i = 0; i < this.gridNumbers.length; i++) {
@@ -118,6 +155,35 @@ public class GameGrid {
             sum += this.gridNumbers[i][j];
             j -= 1;
         }
-        System.out.println(returnWinner(sum));
+        if (sum == 3) {
+            return "X";
+        } else if (sum == 30) {
+            return "O";
+        } else {
+            return "neither";
+        }
+    }
+
+
+    // checking if game is valid by checking number of X and O
+
+    public String checkNumberOfSymbols() {
+        int xCount = 0;
+        int oCount = 0;
+        for (String[] row : this.gridArray) {
+            for (String element : row) {
+                if (element.equals("X")) {
+                    xCount += 1;
+                }
+                if (element.equals("O")) {
+                    oCount += 1;
+                }
+            }
+        }
+
+        if (Math.abs(xCount - oCount) >= 2) {
+           return "Impossible";
+        }
+        return "valid";
     }
 }
