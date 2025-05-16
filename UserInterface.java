@@ -4,26 +4,35 @@ import java.util.Scanner;
 
 public class UserInterface {
     private final Scanner sc;
-    private GameGrid gameGrid;
+    private final GameGrid gameGrid;
+    private final int GRID_SIZE;
+
 
     public UserInterface() {
         this.sc = new Scanner(System.in);
         this.gameGrid = new GameGrid();
+        this.GRID_SIZE = 3;
     }
 
     public void start() {
-        getGridFromUser();
+        setGridForGame();
         printGrid();
-        // System.out.println(gameGrid.chooseWinner());
-        getCoordinates();
-        printGrid();
+
+        while (true) {
+            if (gameGrid.isThereWinner()) {
+                break;
+            }
+            getCoordinates();
+            printGrid();
+        }
+
 
 
     }
 
 
-    private void getGridFromUser() {
-        gameGrid.setGridArray(sc.nextLine());
+    private void setGridForGame() {
+        gameGrid.setGridArray(GRID_SIZE);
     }
 
     private void printGrid() {

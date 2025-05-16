@@ -3,26 +3,28 @@ package tictactoe;
 public class GameGrid {
     private String[][] gridArray;
     private int[][] gridNumbers;
+    private Players players;
 
     public GameGrid() {
+        players = new Players();
     }
 
     public String[][] getGridArray() {
         return this.gridArray;
     }
-    // creating 2D array each row has 3 columns
+    // creating 2D array with same num of columns and row, based on fieldSize
+    //
 
-    public void setGridArray(String gridRepresentation) {
-        this.gridArray = new String[gridRepresentation.length() / 3][gridRepresentation.length() / 3];
+    public void setGridArray(int fieldSize) {
+        this.gridArray = new String[fieldSize][fieldSize];
 
-        int startIndex = 0;
-
-        for (int i = 0; i < this.gridArray.length; i++) {
-            for (int j = 0; j < this.gridArray[0].length; j++) {
-                this.gridArray[i][j] = gridRepresentation.substring(startIndex, startIndex + 1);
-                startIndex += 1;
+        for (int i = 0; i < fieldSize; i++) {
+            for (int j = 0; j < fieldSize; j++) {
+                gridArray[i][j] = "_";
             }
         }
+
+
         setGridNumbers();
     }
 
@@ -52,20 +54,22 @@ public class GameGrid {
     // 0 if not finished "game not finished"
     // 100 "impossible"
 
-    public String chooseWinner() {
-        int sum = checkRowsForWiner() + checkColumnsForWinner()
-                + checkLeftDiagonalForWinner() + checkRightDiagonalForWinner()
-                + checkNumberOfSymbols();
+    public boolean isThereWinner() {
+        setGridNumbers();
+        int sum = 0;
+        sum = checkRowsForWiner() + checkColumnsForWinner()
+                + checkLeftDiagonalForWinner() + checkRightDiagonalForWinner();
         if (sum == 1) {
-            return "X wins";
+            System.out.println("X wins");
+            return true;
         } else if (sum == 2) {
-            return "O wins";
+            System.out.println("O wins");
+            return true;
         } else if (sum == 0 && isGameFinished()) {
-            return "Draw";
-        } else if (sum == 0 && !isGameFinished()) {
-            return "Game not finished";
-        } else {
-            return "Impossible";
+            System.out.println("Draw");
+            return true;
+        } else{
+            return false;
         }
 
     }
@@ -115,8 +119,6 @@ public class GameGrid {
             return 1;
         } else if (winner == 30) {
             return 2;
-        } else if(winner != 0) {
-            return 100;
         } else {
             return 0;
         }
@@ -142,8 +144,6 @@ public class GameGrid {
             return 1;
         } else if (winner == 30) {
             return 2;
-        } else if(winner != 0) {
-            return 100;
         } else {
             return 0;
         }
@@ -186,26 +186,26 @@ public class GameGrid {
 
 
     // checking if game is valid by checking number of X and O
-
-    private int checkNumberOfSymbols() {
-        int xCount = 0;
-        int oCount = 0;
-        for (String[] row : this.gridArray) {
-            for (String element : row) {
-                if (element.equals("X")) {
-                    xCount += 1;
-                }
-                if (element.equals("O")) {
-                    oCount += 1;
-                }
-            }
-        }
-
-        if (Math.abs(xCount - oCount) >= 2) {
-           return 100;
-        }
-        return 0;
-    }
+//
+//    private int checkNumberOfSymbols() {
+//        int xCount = 0;
+//        int oCount = 0;
+//        for (String[] row : this.gridArray) {
+//            for (String element : row) {
+//                if (element.equals("X")) {
+//                    xCount += 1;
+//                }
+//                if (element.equals("O")) {
+//                    oCount += 1;
+//                }
+//            }
+//        }
+//
+//        if (Math.abs(xCount - oCount) >= 2) {
+//           return 100;
+//        }
+//        return 0;
+//    }
 
     // checking if cell is occupied or empty
     public boolean checkCells(String[] coordinate) {
