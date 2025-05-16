@@ -60,6 +60,7 @@ public class UserInterface {
 
             // if coordinates are number, check if it is in range
             if (isCoordinateNumber(coordinates)) {
+
                 if (isCoordinateInRange(coordinates)) {
 
                     // if it is in range check if that cell is not empty
