@@ -26,14 +26,12 @@ public class GameGrid {
         setGridNumbers();
     }
 
-    public int[][] getGridNumbers() {
-        return this.gridNumbers;
-    }
+
 
     // transfers values X and 0 to 1 or 10
     // needed for algorithm to decide who win
 
-    public void setGridNumbers() {
+    private void setGridNumbers() {
         this.gridNumbers = new int[this.gridArray[0].length][this.gridArray[0].length];
 
         for (int i = 0; i < this.gridArray.length; i++) {
@@ -48,11 +46,31 @@ public class GameGrid {
     }
 
 
-    public void chooseWinner() {
+    // sum all returning value from checking
+    // 1 "X" wins, 2 "O" wins
+    // 0 if finished "draw"
+    // 0 if not finished "game not finished"
+    // 100 "impossible"
+
+    public String chooseWinner() {
+        int sum = checkRowsForWiner() + checkColumnsForWinner()
+                + checkLeftDiagonalForWinner() + checkRightDiagonalForWinner()
+                + checkNumberOfSymbols();
+        if (sum == 1) {
+            return "X wins";
+        } else if (sum == 2) {
+            return "O wins";
+        } else if (sum == 0 && isGameFinished()) {
+            return "Draw";
+        } else if (sum == 0 && !isGameFinished()) {
+            return "Game not finished";
+        } else {
+            return "Impossible";
+        }
 
     }
 
-    public boolean isGameFinished() {
+    private boolean isGameFinished() {
         for (String[] row : this.gridArray) {
             for (String element : row) {
                 if (element.equals("_")) {
@@ -63,6 +81,8 @@ public class GameGrid {
         return true;
     }
 
+
+
     // checking if there is winner, return winner or draw if there is draw or empty string for no winner
 
     private int returnWinner(int sum) {
@@ -71,13 +91,13 @@ public class GameGrid {
         } else if (sum == 30) {
             return 30;
         } else {
-            return 1;
+            return 0;
         }
     }
 
     // summing numbers in row, if it is 3 or 30 there is a winner
 
-    public String checkRowsForWiner() {
+    private int checkRowsForWiner() {
         /*
          * there should not be two winners, if winner number is not equal
          * to 3 or 30, game is not valid
@@ -92,19 +112,19 @@ public class GameGrid {
         }
 
         if (winner == 3) {
-            return "X";
+            return 1;
         } else if (winner == 30) {
-            return "O";
+            return 2;
         } else if(winner != 0) {
-            return "impossible";
+            return 100;
         } else {
-            return "neither";
+            return 0;
         }
     }
 
     //summing numbers in columns, if there is 3 or 30 there is winner
 
-    public String checkColumnsForWinner() {
+    private int checkColumnsForWinner() {
         /*
          * there should not be two winners, if winner number is not equal
          * to 3 or 30, game is not valid
@@ -119,34 +139,34 @@ public class GameGrid {
             winner += returnWinner(sum);
         }
         if (winner == 3) {
-            return "X";
+            return 1;
         } else if (winner == 30) {
-            return "O";
+            return 2;
         } else if(winner != 0) {
-            return "impossible";
+            return 100;
         } else {
-            return "neither";
+            return 0;
         }
     }
 
     // summing numbers in diagonal, if there is 3 or 30 there is a winner
 
-    public String checkRightDiagonalForWinner() {
+    private int checkRightDiagonalForWinner() {
         int sum = 0;
         for (int i = 0; i < this.gridNumbers.length; i++) {
             sum += this.gridNumbers[i][i];
         }
 
         if (sum == 3) {
-            return "X";
+            return 1;
         } else if (sum == 30) {
-            return "O";
+            return 2;
         } else {
-            return "neither";
+            return 0;
         }
     }
 
-    public String checkLeftDiagonalForWinner() {
+    private int checkLeftDiagonalForWinner() {
         int sum = 0;
 
         int j = 2;
@@ -156,18 +176,18 @@ public class GameGrid {
             j -= 1;
         }
         if (sum == 3) {
-            return "X";
+            return 1;
         } else if (sum == 30) {
-            return "O";
+            return 2;
         } else {
-            return "neither";
+            return 0;
         }
     }
 
 
     // checking if game is valid by checking number of X and O
 
-    public String checkNumberOfSymbols() {
+    private int checkNumberOfSymbols() {
         int xCount = 0;
         int oCount = 0;
         for (String[] row : this.gridArray) {
@@ -182,8 +202,8 @@ public class GameGrid {
         }
 
         if (Math.abs(xCount - oCount) >= 2) {
-           return "Impossible";
+           return 100;
         }
-        return "valid";
+        return 0;
     }
 }

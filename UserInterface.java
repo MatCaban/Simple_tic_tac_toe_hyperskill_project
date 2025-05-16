@@ -11,13 +11,7 @@ public class UserInterface {
     public void start() {
         getGridFromUser();
         printGrid();
-        System.out.println("finished " + gameGrid.isGameFinished());
-        System.out.println("check rows " + gameGrid.checkRowsForWiner());
-        System.out.println("check columns " + gameGrid.checkColumnsForWinner());
-        System.out.println("check right diagonal " + gameGrid.checkRightDiagonalForWinner());
-        System.out.println("check left diagonal " + gameGrid.checkLeftDiagonalForWinner());
-
-        System.out.println("check num of symbols " + gameGrid.checkNumberOfSymbols());
+        System.out.println(gameGrid.chooseWinner());
 
 
     }
