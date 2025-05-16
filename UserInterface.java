@@ -16,6 +16,7 @@ public class UserInterface {
         printGrid();
         // System.out.println(gameGrid.chooseWinner());
         getCoordinates();
+        printGrid();
 
 
     }
@@ -76,36 +77,6 @@ public class UserInterface {
         }
     }
 
-    // checking if user input is valid number in range 1-3
-    // get user know that input is invalid
-
-//    private boolean isCoordinateValid() {
-//
-//        try {
-//            String[] coordinates = sc.nextLine().split(" ");
-//            int xCoordinate = Integer.parseInt(coordinates[0]);
-//            int yCoordinate = Integer.parseInt(coordinates[1]);
-//            if (checkCoordinateRange(xCoordinate,yCoordinate)) {
-//                if (gameGrid.checkCells(xCoordinate, yCoordinate) == 0) {
-//                    return false;
-//                } else {
-//                    System.out.println("This cell is occupied! Choose another one!");
-//                    return true;
-//                }
-//
-//            } else {
-//                System.out.println("Coordinates should be from 1 to 3!");
-//
-//                return true;
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println("You should enter numbers!");
-//
-//            return true;
-//        }
-//
-//    }
 
     // checking if coordinates are in valid range 1 - 3
 

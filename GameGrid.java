@@ -213,9 +213,15 @@ public class GameGrid {
         int yCoordinate = Integer.parseInt(coordinate[1]);
         String symbol = this.gridArray[xCoordinate - 1][yCoordinate - 1];
         if (symbol.equals("_")) {
+            // if cell is empty setX to that position
+            setXtoGrid(xCoordinate, yCoordinate);
             return true;
         }
         return false;
+    }
+
+    private void setXtoGrid(int xCoordinate, int yCoordinate) {
+        this.gridArray[xCoordinate -1][yCoordinate -1] = "X";
     }
 
 }
