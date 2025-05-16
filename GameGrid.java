@@ -213,15 +213,22 @@ public class GameGrid {
         int yCoordinate = Integer.parseInt(coordinate[1]);
         String symbol = this.gridArray[xCoordinate - 1][yCoordinate - 1];
         if (symbol.equals("_")) {
-            // if cell is empty setX to that position
-            setXtoGrid(xCoordinate, yCoordinate);
+            // if cell is empty set X/O to that position
+            setXOtoGrid(xCoordinate, yCoordinate);
             return true;
         }
         return false;
     }
 
-    private void setXtoGrid(int xCoordinate, int yCoordinate) {
-        this.gridArray[xCoordinate -1][yCoordinate -1] = "X";
+    private void setXOtoGrid(int xCoordinate, int yCoordinate) {
+        if (players.isPlayerXTurn()) {
+            this.gridArray[xCoordinate -1][yCoordinate -1] = "X";
+        } else {
+            this.gridArray[xCoordinate -1][yCoordinate -1] = "O";
+        }
+        players.switchTurn();
+
+
     }
 
 }
