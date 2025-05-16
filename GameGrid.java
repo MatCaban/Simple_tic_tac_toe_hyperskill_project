@@ -206,4 +206,16 @@ public class GameGrid {
         }
         return 0;
     }
+
+    // checking if cell is occupied or empty
+    public boolean checkCells(String[] coordinate) {
+        int xCoordinate = Integer.parseInt(coordinate[0]);
+        int yCoordinate = Integer.parseInt(coordinate[1]);
+        String symbol = this.gridArray[xCoordinate - 1][yCoordinate - 1];
+        if (symbol.equals("_")) {
+            return true;
+        }
+        return false;
+    }
+
 }
